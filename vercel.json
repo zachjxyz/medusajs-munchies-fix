@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "storefront/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "rootDirectory": "storefront"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "storefront/$1"
+    }
+  ]
+} 
