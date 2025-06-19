@@ -69,8 +69,8 @@ importers:
         specifier: ^4.0.0
         version: 4.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       zod:
-        specifier: ^3.25.0
-        version: 3.25.0
+        specifier: ^3.25.67
+        version: 3.25.67
     devDependencies:
       '@medusajs/test-utils':
         specifier: 2.8.4
@@ -6754,8 +6754,8 @@ packages:
   zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
-  zod@3.25.0:
-    resolution: {integrity: sha512-ficnZKUW0mlNivqeJkosTEkGbJ6NKCtSaOHGx5aXbtfeWMdRyzXLbAIn19my4C/KB7WPY/p9vlGPt+qpOp6c4Q==}
+  zod@3.25.67:
+    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
 
 snapshots:
 
@@ -15135,4 +15135,4 @@ snapshots:
 
   zod@3.22.4: {}
 
-  zod@3.25.0: {}
+  zod@3.25.67: {}
