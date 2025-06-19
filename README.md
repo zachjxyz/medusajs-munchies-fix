@@ -8,8 +8,8 @@ Deploy your store in **5 steps** using Railway (backend) + Vercel (frontend):
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/zachjxyz/medusajs-munchies-fix.git
+cd medusajs-munchies-fix
 
 # Install backend dependencies
 cd backend
