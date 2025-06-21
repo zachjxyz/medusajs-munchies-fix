@@ -268,19 +268,128 @@ pnpm run dev
 
 ---
 
-## 🆘 Support
+## 🆘 Support & Troubleshooting
+
+### Critical Setup Issues & Solutions
+
+#### 🔧 **Admin Login "process is not defined" Error**
+**Problem**: Admin shows `process is not defined` error in browser console  
+**Solution**: This is fixed in this template. If you encounter it:
+```typescript
+// In backend/src/admin/lib/sdk.ts, ensure this code:
+export const backendUrl = typeof window !== "undefined" 
+  ? `${window.location.protocol}//${window.location.hostname}:9000`
+  : "http://localhost:9000";
+```
+
+#### 🔧 **Railway Database Connection Issues**
+**Problem**: `getaddrinfo ENOTFOUND postgres.railway.internal`  
+**Solution**: Use **PUBLIC** database URLs for local development:
+1. Go to Railway dashboard → PostgreSQL service
+2. Copy `DATABASE_PUBLIC_URL` (not `DATABASE_URL`)
+3. Copy `REDIS_PUBLIC_URL` (not `REDIS_URL`)
+4. Update your `.env` file with public URLs
+
+#### 🔧 **Admin User Creation**
+**Problem**: Can't access admin after deployment  
+**Solution**: Create admin user via CLI:
+```bash
+cd backend
+npx medusa user --email your@email.com --password yourpassword
+```
+
+#### 🔧 **CORS Errors**
+**Problem**: Frontend can't connect to backend  
+**Solution**: Update CORS settings in backend `.env`:
+```bash
+STORE_CORS="https://your-storefront.vercel.app,http://localhost:3000"
+ADMIN_CORS="https://your-storefront.vercel.app,http://localhost:3000"
+AUTH_CORS="https://your-storefront.vercel.app,http://localhost:3000"
+```
+
+#### 🔧 **Build Failures on Railway**
+**Problem**: Deployment fails with build errors  
+**Solution**: Ensure all environment variables are set in Railway:
+1. Go to Railway project → Variables tab
+2. Add ALL variables from your `.env.template`
+3. Use **production** values (not localhost URLs)
+
+### Railway Deployment Checklist
+
+#### ✅ **Pre-Deployment Steps**
+1. **Test locally first** - Ensure everything works with Railway databases
+2. **Update environment variables** - Use production URLs, not localhost
+3. **Build locally** - Run `pnpm build` to catch build errors early
+4. **Commit all changes** - Railway deploys from your Git repository
+
+#### ✅ **Railway Configuration**
+1. **Root Directory**: Set to `backend` in Railway settings
+2. **Build Command**: `pnpm install && pnpm build`
+3. **Start Command**: `pnpm start`
+4. **Environment Variables**: Copy from your working `.env` file
+
+#### ✅ **Critical Environment Variables for Railway**
+```bash
+# Database (Railway provides these)
+DATABASE_URL="postgresql://..."
+REDIS_URL="redis://..."
+
+# Backend URL (Railway provides this)
+MEDUSA_BACKEND_URL="https://your-app.railway.app"
+
+# Security (generate new ones for production)
+JWT_SECRET="production-jwt-secret-here"
+COOKIE_SECRET="production-cookie-secret-here"
+
+# External services (same as local)
+SANITY_PROJECT_ID="..."
+SANITY_API_TOKEN="..."
+AWS_ACCESS_KEY_ID="..."
+AWS_SECRET_ACCESS_KEY="..."
+S3_BUCKET="..."
+STRIPE_API_KEY="..."
+
+# CORS (use your production URLs)
+STORE_CORS="https://your-storefront.vercel.app"
+ADMIN_CORS="https://your-storefront.vercel.app"
+AUTH_CORS="https://your-storefront.vercel.app"
+```
+
+#### ✅ **Post-Deployment Steps**
+1. **Check deployment logs** - Look for any errors in Railway logs
+2. **Test health endpoint** - Visit `https://your-app.railway.app/health`
+3. **Create admin user** - Use Railway CLI or connect to deployed database
+4. **Test admin access** - Visit `https://your-app.railway.app/app`
+5. **Update storefront** - Point `NEXT_PUBLIC_MEDUSA_BACKEND_URL` to Railway URL
 
 ### Common Issues
-- **Database Connection**: Check Railway DATABASE_URL format
-- **CORS Errors**: Verify STORE_CORS and ADMIN_CORS URLs
-- **Build Failures**: Ensure all environment variables are set
-- **Admin Access**: Visit `/app` not `/admin` for MedusaJS 2.0
+
+#### Database Connection
+- **Local Development**: Use Railway's **PUBLIC** database URLs
+- **Production**: Railway automatically provides internal URLs
+- **Format**: Ensure DATABASE_URL includes all connection parameters
+
+#### CORS Errors  
+- **Development**: Include `http://localhost:3000` in CORS settings
+- **Production**: Use your actual domain URLs
+- **Multiple URLs**: Separate with commas (no spaces)
+
+#### Build Failures
+- **Missing Variables**: All environment variables must be set
+- **Node Version**: Ensure Railway uses Node.js 20+
+- **Dependencies**: Run `pnpm install` before building
+
+#### Admin Access
+- **URL**: Use `/app` not `/admin` for MedusaJS 2.0+
+- **User Creation**: Must create admin user via CLI first
+- **Browser Issues**: Try incognito mode if admin won't load
 
 ### Get Help
 - 💬 **[MedusaJS Discord](https://discord.gg/medusajs)**
 - 📖 **[MedusaJS Documentation](https://docs.medusajs.com)**
 - 🐛 **[Report Issues](https://github.com/medusajs/medusa/issues)**
 - 💡 **[Community Forum](https://github.com/medusajs/medusa/discussions)**
+- 🚂 **[Railway Documentation](https://docs.railway.app)**
 
 ---
 
