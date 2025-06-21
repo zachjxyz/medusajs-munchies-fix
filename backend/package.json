@@ -13,8 +13,8 @@
     "medusa"
   ],
   "scripts": {
-    "build": "medusa build",
-    "build:railway": "echo 'Starting Railway build...' && medusa build && echo 'Build completed successfully' && ls -la .medusa/client/ && echo 'Admin files verified' && echo 'Build artifacts ready for deployment'",
+    "build": "medusa build && mkdir -p public/admin && cp -r .medusa/client/* public/admin/",
+    "build:railway": "echo 'Starting Railway build...' && medusa build && mkdir -p public/admin && cp -r .medusa/client/* public/admin/ && echo 'Build completed successfully' && ls -la public/admin/ && echo 'Admin files verified' && echo 'Build artifacts ready for deployment'",
     "build:fallback": "echo 'Running fallback build without admin...' && DISABLE_ADMIN=true medusa build && echo 'Fallback build completed'",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",

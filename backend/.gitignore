@@ -25,6 +25,9 @@ build
 
 .medusa
 
+# Admin build artifacts
+public/admin
+
 # Redis dump files
 dump.rdb
 *.rdb
