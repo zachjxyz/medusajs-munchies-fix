@@ -8,7 +8,9 @@ cmds = [
 
 [phases.build]
 cmds = [
-  'cd backend && pnpm run build:railway'
+  'cd backend && pnpm run build:railway',
+  'echo "Verifying build output..."',
+  'ls -la backend/.medusa/ || echo "Build directory not found, but continuing..."'
 ]
 
 [start]
