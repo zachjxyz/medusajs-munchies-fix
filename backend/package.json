@@ -14,8 +14,8 @@
   ],
   "scripts": {
     "build": "medusa build",
-    "build:railway": "medusa build && echo 'Build completed' && ls -la .medusa/client/ && echo 'Admin build verified' || (echo 'Admin build failed, trying fallback...' && DISABLE_ADMIN=true medusa build && echo 'Fallback build completed')",
-    "postinstall": "medusa build",
+    "build:railway": "echo 'Starting Railway build...' && medusa build && echo 'Build completed successfully' && ls -la .medusa/client/ && echo 'Admin files verified' && echo 'Build artifacts ready for deployment'",
+    "build:fallback": "echo 'Running fallback build without admin...' && DISABLE_ADMIN=true medusa build && echo 'Fallback build completed'",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",

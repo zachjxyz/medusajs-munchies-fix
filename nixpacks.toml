@@ -8,9 +8,11 @@ cmds = [
 
 [phases.build]
 cmds = [
-  'cd backend && pnpm run build:railway',
+  'cd backend && (pnpm run build:railway || pnpm run build:fallback)',
   'echo "Verifying build output..."',
-  'ls -la backend/.medusa/ || echo "Build directory not found, but continuing..."'
+  'ls -la backend/.medusa/ || echo "Build directory not found"',
+  'ls -la backend/.medusa/client/ || echo "Client directory not found, admin may be disabled"',
+  'echo "Build phase completed"'
 ]
 
 [start]
