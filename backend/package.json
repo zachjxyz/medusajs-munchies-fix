@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "build": "medusa build",
+    "build:railway": "medusa build && echo 'Build completed' && ls -la .medusa/client/ && echo 'Admin build verified'",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
