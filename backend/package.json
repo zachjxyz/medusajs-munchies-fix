@@ -13,8 +13,8 @@
     "medusa"
   ],
   "scripts": {
-    "build": "medusa build && mkdir -p public/admin && cp -r .medusa/client/* public/admin/ && sed -i '' 's|\"\\./entry\\.jsx\"|\"\/app\/entry.jsx\"|g' public/admin/index.html",
-    "build:railway": "echo 'Starting Railway build...' && medusa build && mkdir -p public/admin && cp -r .medusa/client/* public/admin/ && sed -i 's|\"\\./entry\\.jsx\"|\"\/app\/entry.jsx\"|g' public/admin/index.html && echo 'Build completed successfully' && ls -la public/admin/ && echo 'Admin files verified' && echo 'Build artifacts ready for deployment'",
+    "build": "medusa build && mkdir -p public/admin && cp -r .medusa/client/* public/admin/ && node -e \"const fs = require('fs'); const html = fs.readFileSync('public/admin/index.html', 'utf8'); fs.writeFileSync('public/admin/index.html', html.replace('./entry.jsx', '/app/entry.jsx'));\"",
+    "build:railway": "echo 'Starting Railway build...' && medusa build && mkdir -p public/admin && cp -r .medusa/client/* public/admin/ && node -e \"const fs = require('fs'); const html = fs.readFileSync('public/admin/index.html', 'utf8'); fs.writeFileSync('public/admin/index.html', html.replace('./entry.jsx', '/app/entry.jsx'));\" && echo 'Build completed successfully' && ls -la public/admin/ && echo 'Admin files verified' && echo 'Build artifacts ready for deployment'",
     "build:fallback": "echo 'Running fallback build without admin...' && DISABLE_ADMIN=true medusa build && echo 'Fallback build completed'",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
